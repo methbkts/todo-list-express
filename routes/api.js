@@ -34,22 +34,22 @@ MongoClient.connect(url,
         // Update One TODO
         router.put('/:id', function (req, res, next) {
           db.collection('todos').updateOne({_id:ObjectId(req.params.id)},
-          {$set: req.body/*{state:true}*/}),
+          {$set: req.body/*{state:true}*/},
           function (err, result) {
                 if (err) return next(err);
                 return res.json(result);
             //   db.close();
-            };
+            });
         });
 
         // Delete One TODO
         router.delete('/:id', function (req, res, next) {
-          db.collection('todos').deleteOne({_id:ObjectId(req.params.id)}),
+          db.collection('todos').deleteOne({_id:ObjectId(req.params.id)},
            function(err, result) {
                 if(err) return next(err);
                 return res.json(result);
             //   db.close();
-            };
+            });
         });
 
 //   /* GET todos */
