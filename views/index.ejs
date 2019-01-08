@@ -2,10 +2,47 @@
 <html>
   <head>
     <title><%= title %></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <p>Bienvenue sur <%= title %></p>
+    <br>
+    <p>Vous pouvez voir ci-dessous la liste de todos</p>
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Contenu</th>
+          <th>Utilisateur</th>
+          <th>État</th>
+          <th>Deadline</th>
+          <th>Créé le</th>
+          <th>Modifié le</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% for(let i=0; i < todos.length; i++) { %>
+         <tr>
+           <td><%= todos[i].title %></td>
+           <td><%= todos[i].content %></td>
+           <td><%= todos[i].user %></td>
+           <td><%= todos[i].state %></td>
+           <td><%= todos[i].deadLine %></td>
+           <td><%= todos[i].creation_date.toDateString().substr(4,12) %></td>
+           <td><%= todos[i].updated_date.toDateString() %></td>
+           <td><button type="button" class="btn btn-success done-button" data-id="<%= todos[i]._id %>" data-state="<%= todos[i].state %>">Effectué</button></td>
+           <td><button type="button" class="btn btn-danger delete-button" data-id="<%= todos[i]._id %>">Supprimer</button></td>
+         </tr>
+      <% } %>
+      </tbody>
+      </table>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="/javascripts/script.js"></script>
   </body>
 </html>
