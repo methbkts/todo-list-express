@@ -14,5 +14,8 @@
     "less-middleware": "~2.2.1",
     "mongodb": "^3.1.10",
     "morgan": "~1.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
   }
 }
