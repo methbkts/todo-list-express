@@ -9,6 +9,9 @@ document.querySelectorAll('.done-button').forEach(function(element) {
         var st = this.getAttribute('data-state') == "false" ;
         makeRequest(this.getAttribute('data-id'), 'PUT', {state:st}, function(res) {
             alert('Effectué');
+            var span = document.createElement('span');
+            span.innerHTML = res.response;
+            element.closest('.todos').replaceWith(span.firstChild);
             // var el = element.closest('.todos');
             // console.log(el);
         });
