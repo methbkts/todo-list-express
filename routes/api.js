@@ -7,68 +7,75 @@ url = "mongodb://localhost:27017/todolist";
 
 MongoClient.connect(url,
   {useNewUrlParser:true},
-      
-        function(err, client) {
-        if (err) throw err;
-      
-        let db = client.db('todolist');
-        // let userId = "5bf3e80351334b228d1bbcf1";
   
-        router.use(function (req, res, next) {
-          res.setHeader('Content-Type', 'application/json');
-          next();
-        });
+  function(err, client) {
+    if (err) throw err;
+    
+    let db = client.db('todolist');
+    // let userId = "5bf3e80351334b228d1bbcf1";
+    
+    router.use(function (req, res, next) {
+      res.setHeader('Content-Type', 'application/json');
+      next();
+    });
+    
+    /* GET all todos */
+    router.get('/', function (req, res, next) {
+      db.collection('todos').find({}).toArray(function (err, todos) {
+        // res.render('index', { title: 'Todo List', todos: todos });
+        return res.json(todos);
+      })
+    });
 
-        // Insert One TODO
-        //   router.post()
-// db.todos.insertOne({
-//     title : 'todo #3',
-//     content : 'Élément de ma todolist',
-//     creation_date : new Date(),
-//     updated_date : new Date(),
-//     state : false,
-//     user : 'johnDoe',
-//     deadLine : ''
-// })
+    /* POST one todo */
+    //   router.post('/', function (req, res, next) {
+      
+      // db.todos.insertOne({
+        //     title : 'todo #3',
+        //     content : 'Élément de ma todolist',
+        //     creation_date : new Date(),
+        //     updated_date : new Date(),
+        //     state : false,
+        //     user : 'johnDoe',
+        //     deadLine : ''
+        // })
+      // });
 
-        // Update One TODO
-        router.put('/:id', function (req, res, next) {
-          db.collection('todos').updateOne({_id:ObjectId(req.params.id)},
-          {$set: req.body/*{state:true}*/},
-          function (err, result) {
-                if (err) return next(err);
-                db.collection('todos').findOne({_id:ObjectId(req.params.id)}, function (err, doc){
+    /* GET one todo */
+    // router.get('/:id', function (req, res, next) {
+      
+    // })
+
+    /* PUT (Update) One TODO */
+    router.put('/:id', function (req, res, next) {
+      db.collection('todos').updateOne({_id:ObjectId(req.params.id)},
+        {$set: req.body/*{state:true}*/},
+        function (err, result) {
+            if (err) return next(err);
+            db.collection('todos').findOne({_id:ObjectId(req.params.id)}, function (err, doc){
+              if(err) return next(err);
+              res.render('todo', {todo : doc}, function(err, html) {
                   if(err) return next(err);
-                  res.render('todo', {todo : doc}, function(err, html) {
-                      if(err) return next(err);
-                      return res.json({response : html})   
-                  })
-                })
-                // return res.json(result);
-            //   db.close();
+                  return res.json({response : html})   
+              })
             });
-        });
-
-        // Delete One TODO
-        router.delete('/:id', function (req, res, next) {
-          db.collection('todos').deleteOne({_id:ObjectId(req.params.id)},
-           function(err, result) {
-                if(err) return next(err);
-                return res.json(result);
+            // return res.json(result);
             //   db.close();
-            });
-        });
+        }
+      );
+    });
 
-//   /* GET todos */
-//   router.get('/', function (req, res, next) {
-//     db.collection('todos').find({}).toArray(function (err, todos) {
-//       // res.render('index', { title: 'Todo List', todos: todos });
-//       return res.json(todos);
-//     })
-//   });
+    /* DELETE One TODO */
+    router.delete('/:id', function (req, res, next) {
+      db.collection('todos').deleteOne({_id:ObjectId(req.params.id)},
+        function(err, result) {
+            if(err) return next(err);
+            return res.json(result);
+        //   db.close();
+        }
+      );
+    });
 
-// });
-
-});
+}); /* END MongoClient.connect*/
 
 module.exports = router;
