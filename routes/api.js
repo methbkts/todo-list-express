@@ -27,18 +27,20 @@ MongoClient.connect(url,
     });
 
     /* POST one todo */
-    //   router.post('/', function (req, res, next) {
-      
-      // db.todos.insertOne({
-        //     title : 'todo #3',
-        //     content : 'Élément de ma todolist',
-        //     creation_date : new Date(),
-        //     updated_date : new Date(),
-        //     state : false,
-        //     user : 'johnDoe',
-        //     deadLine : ''
-        // })
-      // });
+      router.post('/', function (req, res, next) {
+        var todo = {
+          title: req.body.title,
+          content: req.body.content,
+          creation_date : new Date(),
+          updated_date : new Date(),
+          state : false,
+          user : 'johnDoe',
+          deadLine : '',
+        }
+        db.collection('todos').insertOne(todo, function (err, result) {
+          return res.json(result);
+        })
+      });
 
     /* GET one todo */
     // router.get('/:id', function (req, res, next) {

@@ -33,6 +33,29 @@ document.querySelectorAll('.delete-button').forEach(function(element) {
     });
 });
 
+/* form event listener */
+
+document.getElementById('addTodo').addEventListener('submit', function (evt) {
+    console.log('toto');
+    evt.preventDefault();
+    evt.stopPropagation();
+    // alert("event propagation halted.");
+    var form = evt.target;
+    var datas = {} ; // title content
+
+    form.querySelectorAll('[name]').forEach(function(el){
+        // console.log('totototo ->');
+        // console.log(el);
+        datas[el.getAttribute('name')] = el.value;
+    });
+    console.log(datas);
+    makeRequest('', form.getAttribute('method'), datas, function(res){
+        alert('Todo ajouté');
+        console.log(res);
+        // recup dernier element de la DB
+    });
+});
+
 // Ajax Request
 function makeRequest(id, method, datas, callback) {
     xhr = new XMLHttpRequest();
