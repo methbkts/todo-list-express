@@ -22,7 +22,6 @@ MongoClient.connect(url,
     /* GET all todos */
     router.get('/', function (req, res, next) {
       db.collection('todos').find({}).toArray(function (err, todos) {
-        // res.render('index', { title: 'Todo List', todos: todos });
         return res.json(todos);
       })
     });
@@ -54,7 +53,7 @@ MongoClient.connect(url,
             if (err) return next(err);
             db.collection('todos').findOne({_id:ObjectId(req.params.id)}, function (err, doc){
               if(err) return next(err);
-              res.render('todo', {todo : doc}, function(err, html) {
+              res.render('todos', {todos : doc}, function(err, html) {
                   if(err) return next(err);
                   return res.json({response : html})   
               })
