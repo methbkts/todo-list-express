@@ -1,0 +1,11 @@
+<tr class="todos">
+    <td><%= todos.title %></td>
+    <td><%= todos.content %></td>
+    <td><%= todos.user %></td>
+    <td><%= todos.state %></td>
+    <td><%= todos.deadLine %></td>
+    <td><%= todos.creation_date.toDateString().substr(4,12) %></td>
+    <td><%= todos.updated_date.toDateString() %></td>
+    <td><button type="button" class="btn btn-success done-button" data-id="<%= todos._id %>" data-state="<%= todos.state %>">Effectué</button></td>
+    <td><button type="button" class="btn btn-danger delete-button" data-id="<%= todos._id %>">Supprimer</button></td>
+  </tr> 

@@ -27,7 +27,8 @@
       </thead>
       <tbody>
       <% for(let i=0; i < todos.length; i++) { %>
-         <tr class="todos">
+        <%- include('todo', {todos: todos[i]}); %>
+         <!-- <tr class="todos">
            <td><%= todos[i].title %></td>
            <td><%= todos[i].content %></td>
            <td><%= todos[i].user %></td>
@@ -37,7 +38,7 @@
            <td><%= todos[i].updated_date.toDateString() %></td>
            <td><button type="button" class="btn btn-success done-button" data-id="<%= todos[i]._id %>" data-state="<%= todos[i].state %>">Effectué</button></td>
            <td><button type="button" class="btn btn-danger delete-button" data-id="<%= todos[i]._id %>">Supprimer</button></td>
-         </tr>
+         </tr> -->
       <% } %>
       </tbody>
       </table>
