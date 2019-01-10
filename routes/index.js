@@ -19,7 +19,7 @@ MongoClient.connect(url,
 
   /* Display all todos in index view */
   router.get('/', function (req, res, next) {
-    db.collection('todos').find({}).toArray(function (err, todos) {
+    db.collection('todos').find({}).sort({position:1}).toArray(function (err, todos) {
       res.render('index', { title: 'TodoExpress', todos: todos });
     })
   });

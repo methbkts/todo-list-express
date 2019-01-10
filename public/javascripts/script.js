@@ -56,6 +56,24 @@ document.getElementById('addTodo').addEventListener('submit', function (evt) {
     });
 });
 
+var el = document.getElementById('todo-container');
+// console.log(el);
+var sortable = Sortable.create(el, {
+    onEnd : function(evt) {
+        var container = el;
+        var childs = document.querySelectorAll('#todo-container > tr');
+        var orderedIds = [];
+
+        childs.forEach(function(child) {
+            var id = child.getAttribute('data-id');
+            orderedIds.push(id);
+        })
+        makeRequest('order', 'POST', {order : orderedIds}, function(res) {
+            //
+        })
+    }
+});
+
 // Ajax Request
 function makeRequest(id, method, datas, callback) {
     xhr = new XMLHttpRequest();

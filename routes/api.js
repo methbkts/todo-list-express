@@ -77,6 +77,22 @@ MongoClient.connect(url,
       );
     });
 
-}); /* END MongoClient.connect*/
+    router.post('/order', function (req, res, next) {
+      req.body.order = [];
+      
+      var isOk = 1;
+      req.body.order.forEach(function(id, pos) {
+        db.collection('todos').updateOne(
+          {_id:ObjectId(id)},
+          {$set: {position : pos}},
+          function(err, result){
+            if (err || !result.ok) {
+              isOk = 0;
+            }
+          })  
+      })
+      res.json({ok:isOk});
+    }); /* END MongoClient.connect*/
+  })
 
 module.exports = router;
